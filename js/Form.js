@@ -1,30 +1,27 @@
-class Form {
-  constructor() {}
+var canvas, backgroundImage
 
-  display() {
-    var title = createElement('h2')
-    title.html('Car Racing Game')
-    title.position(130, 0)
+var gameState = 0
+var playerCount
+var allPlayers
+var distance = 0
+var database
 
-    var input = createInput('Name')
-    var button = createButton('Play')
+var form, player, game
 
-    input.position(130, 160)
-    button.position(250, 200)
+function setup() {
+  canvas = createCanvas(400, 400)
+  database = firebase.database()
+  game = new Game()
+  game.getState()
+  game.start()
+}
 
-    button.mousePressed(function () {
-      input.hide()
-      button.hide()
-
-      var name = input.value()
-
-      playerCount += 1
-      player.update(name)
-      player.updateCount(playerCount)
-      
-      var greeting = createElement('h3')
-      greeting.html('Hello ' + name)
-      greeting.position(130, 160)
-    })
+function draw() {
+  if (playerCount === 4) {
+    game.update(1)
+  }
+  if (gameState === 1) {
+    clear()
+    game.play()
   }
 }
